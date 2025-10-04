@@ -1,0 +1,9 @@
+customtkinter
+androguard
+requests
+reportlab
+pyyaml
+# Optional / advanced:
+# pyside6
+# yara-python
+# pytest
