@@ -1,1 +1,11 @@
 2025-10-06 01:25:29,573 INFO Decompile cmd: apktool d /home/karan/Downloads/com-whereismytrain-android-2023546-70979153-73c67b9aa2fb2dc90fe07b4e8e471dc5.apk -o /home/karan/Downloads -f
+2025-10-06 03:14:30,613 INFO Decompiling with Androguard: /home/karan/Downloads/mihon-v0.19.1.apk
+2025-10-06 03:14:50,315 INFO Executing command: apktool d /home/karan/Downloads/mihon-v0.19.1.apk -o /home/karan/Music -f
+2025-10-06 03:14:50,946 INFO Executing command: apktool d /home/karan/Downloads/mihon-v0.19.1.apk -o /home/karan/Music -f
+2025-10-06 03:15:00,854 ERROR Androguard failed: 'Session' object has no attribute 'get_files'
+Traceback (most recent call last):
+  File "/home/karan/Documents/Apkghost/apkghost/tools_integration.py", line 27, in decompile_with_androguard
+    for f_path in s.get_files():
+                  ^^^^^^^^^^^
+AttributeError: 'Session' object has no attribute 'get_files'
+2025-10-06 03:15:57,627 INFO Executing command: apktool d /home/karan/Downloads/mihon-v0.19.1.apk -o /home/karan/Music -f
