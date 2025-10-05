@@ -1,6 +1,7 @@
-import json, os
+import json
+import os
+from ..utils import ensure_dir # Corrected import path
 from ..logger import logger
-from ..utils import ensure_dir
 
 def save_json_report(results, out_path):
     try:

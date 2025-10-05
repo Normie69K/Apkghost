@@ -5,7 +5,3 @@ reportlab
 pyyaml
 Pillow
 pefile
-# Optional / advanced:
-# pyside6
-# yara-python
-# pytest

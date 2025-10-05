@@ -1,6 +1,6 @@
 import os
 import re
-from .crypto_solver import try_decode_base64, try_decode_hex
+from .crypto_solver import try_decode_base64
 from ..logger import logger
 
 API_KEY_PATTERNS = [re.compile(p) for p in [r"AIza[0-9A-Za-z\-_]{35}", r"AKIA[0-9A-Z]{16}"]]
@@ -10,16 +10,11 @@ CRYPTO_HINTS_RE = re.compile(r'Cipher\.getInstance\("(AES|RSA|DES)"\)', re.IGNOR
 DANGEROUS_PERMS = ["READ_SMS", "SEND_SMS", "READ_CONTACTS", "RECORD_AUDIO"]
 
 def scan_project(decompiled_path):
-    results = {
-        "api_keys": [], "urls": [], "permissions": [],
-        "decoded_strings": [], "crypto_hints": [], "scanned_files": 0
-    }
-    
+    results = { "api_keys": [], "urls": [], "permissions": [], "decoded_strings": [], "crypto_hints": [], "scanned_files": 0 }
     for root, _, filenames in os.walk(decompiled_path):
         for fname in filenames:
             results["scanned_files"] += 1
             file_path = os.path.join(root, fname)
-
             if file_path.endswith(('.smali', '.xml', '.java', '.kt', '.js')):
                 try:
                     with open(file_path, "r", errors="ignore") as fh:
@@ -34,7 +29,6 @@ def scan_project(decompiled_path):
                             if hint.upper() not in results["crypto_hints"]: results["crypto_hints"].append(hint.upper())
                 except Exception as e:
                     logger.debug(f"Error reading {file_path}: {e}")
-
     manifest_path = os.path.join(decompiled_path, "AndroidManifest.xml")
     if os.path.exists(manifest_path):
         try:
@@ -44,5 +38,4 @@ def scan_project(decompiled_path):
                     if perm in mtxt and perm not in results["permissions"]: results["permissions"].append(perm)
         except Exception as e:
             logger.debug(f"Error reading manifest: {e}")
-            
     return results

@@ -1,11 +1,28 @@
-2025-10-06 01:25:29,573 INFO Decompile cmd: apktool d /home/karan/Downloads/com-whereismytrain-android-2023546-70979153-73c67b9aa2fb2dc90fe07b4e8e471dc5.apk -o /home/karan/Downloads -f
-2025-10-06 03:14:30,613 INFO Decompiling with Androguard: /home/karan/Downloads/mihon-v0.19.1.apk
-2025-10-06 03:14:50,315 INFO Executing command: apktool d /home/karan/Downloads/mihon-v0.19.1.apk -o /home/karan/Music -f
-2025-10-06 03:14:50,946 INFO Executing command: apktool d /home/karan/Downloads/mihon-v0.19.1.apk -o /home/karan/Music -f
-2025-10-06 03:15:00,854 ERROR Androguard failed: 'Session' object has no attribute 'get_files'
+2025-10-06 03:32:43,831 ERROR Failed to launch GUI: cannot import name 'inspect_file' from 'apkghost.utils.file_inspector' (/home/karan/Documents/Apkghost/apkghost/utils/file_inspector.py)
 Traceback (most recent call last):
-  File "/home/karan/Documents/Apkghost/apkghost/tools_integration.py", line 27, in decompile_with_androguard
-    for f_path in s.get_files():
-                  ^^^^^^^^^^^
-AttributeError: 'Session' object has no attribute 'get_files'
-2025-10-06 03:15:57,627 INFO Executing command: apktool d /home/karan/Downloads/mihon-v0.19.1.apk -o /home/karan/Music -f
+  File "/home/karan/Documents/Apkghost/apkghost/main.py", line 29, in main
+    from .gui import launch
+  File "/home/karan/Documents/Apkghost/apkghost/gui.py", line 2, in <module>
+    from .controller import Controller
+  File "/home/karan/Documents/Apkghost/apkghost/controller.py", line 8, in <module>
+    from .utils.file_inspector import inspect_file
+ImportError: cannot import name 'inspect_file' from 'apkghost.utils.file_inspector' (/home/karan/Documents/Apkghost/apkghost/utils/file_inspector.py)
+2025-10-06 03:32:50,652 ERROR Failed to launch GUI: cannot import name 'inspect_file' from 'apkghost.utils.file_inspector' (/home/karan/Documents/Apkghost/apkghost/utils/file_inspector.py)
+Traceback (most recent call last):
+  File "/home/karan/Documents/Apkghost/apkghost/main.py", line 29, in main
+    from .gui import launch
+  File "/home/karan/Documents/Apkghost/apkghost/gui.py", line 2, in <module>
+    from .controller import Controller
+  File "/home/karan/Documents/Apkghost/apkghost/controller.py", line 8, in <module>
+    from .utils.file_inspector import inspect_file
+ImportError: cannot import name 'inspect_file' from 'apkghost.utils.file_inspector' (/home/karan/Documents/Apkghost/apkghost/utils/file_inspector.py)
+2025-10-06 03:34:27,329 ERROR Failed to launch GUI: cannot import name 'inspect_file' from 'apkghost.utils.file_inspector' (/home/karan/Documents/Apkghost/apkghost/utils/file_inspector.py)
+Traceback (most recent call last):
+  File "/home/karan/Documents/Apkghost/apkghost/main.py", line 29, in main
+    from .gui import launch
+  File "/home/karan/Documents/Apkghost/apkghost/gui.py", line 2, in <module>
+    from .controller import Controller
+  File "/home/karan/Documents/Apkghost/apkghost/controller.py", line 8, in <module>
+    from .utils.file_inspector import inspect_file
+ImportError: cannot import name 'inspect_file' from 'apkghost.utils.file_inspector' (/home/karan/Documents/Apkghost/apkghost/utils/file_inspector.py)
+2025-10-06 03:36:56,148 INFO Executing command: apktool d /home/karan/Downloads/mihon-v0.19.1.apk -o /home/karan/Music -f
