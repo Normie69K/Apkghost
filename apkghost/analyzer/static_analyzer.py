@@ -1,16 +1,46 @@
 import os
 import re
-from .crypto_solver import try_decode_base64
+import xml.etree.ElementTree as ET
 from ..logger import logger
 
 API_KEY_PATTERNS = [re.compile(p) for p in [r"AIza[0-9A-Za-z\-_]{35}", r"AKIA[0-9A-Z]{16}"]]
 URL_RE = re.compile(r"https?://[^\s\"'<>]+")
-BASE64_RE = re.compile(r'([A-Za-z0-9+/]{20,})={0,2}')
-CRYPTO_HINTS_RE = re.compile(r'Cipher\.getInstance\("(AES|RSA|DES)"\)', re.IGNORECASE)
-DANGEROUS_PERMS = ["READ_SMS", "SEND_SMS", "READ_CONTACTS", "RECORD_AUDIO"]
 
 def scan_project(decompiled_path):
-    results = { "api_keys": [], "urls": [], "permissions": [], "decoded_strings": [], "crypto_hints": [], "scanned_files": 0 }
+    """Runs all static analysis scans on the decompiled project folder."""
+    results = {
+        "api_keys": [], "urls": [], "permissions": [],
+        "exported_activities": [], "deep_links": [], "scanned_files": 0
+    }
+    
+    # --- Manifest Analysis for Activities and Deep Links ---
+    manifest_path = os.path.join(decompiled_path, "AndroidManifest.xml")
+    if os.path.exists(manifest_path):
+        try:
+            tree = ET.parse(manifest_path)
+            root = tree.getroot()
+            ns = {'android': 'http://schemas.android.com/apk/res/android'}
+            app_tag = root.find('application')
+            if app_tag:
+                for activity in app_tag.findall('activity'):
+                    name = activity.get(f"{{{ns['android']}}}name")
+                    exported = activity.get(f"{{{ns['android']}}}exported")
+                    if exported == "true":
+                        results["exported_activities"].append(name)
+                    
+                    for intent_filter in activity.findall('intent-filter'):
+                        has_action_view = intent_filter.find('action') is not None and intent_filter.find('action').get(f"{{{ns['android']}}}name") == 'android.intent.action.VIEW'
+                        has_category_browsable = intent_filter.find('category') is not None and intent_filter.find('category').get(f"{{{ns['android']}}}name") == 'android.intent.category.BROWSABLE'
+                        if has_action_view and has_category_browsable:
+                            for data in intent_filter.findall('data'):
+                                scheme = data.get(f"{{{ns['android']}}}scheme")
+                                host = data.get(f"{{{ns['android']}}}host")
+                                if scheme and host:
+                                    results["deep_links"].append(f"{scheme}://{host}")
+        except Exception as e:
+            logger.error(f"Failed to parse AndroidManifest.xml: {e}")
+
+    # --- File Content Scanning ---
     for root, _, filenames in os.walk(decompiled_path):
         for fname in filenames:
             results["scanned_files"] += 1
@@ -22,20 +52,7 @@ def scan_project(decompiled_path):
                         for pat in API_KEY_PATTERNS:
                             for m in pat.findall(txt): results["api_keys"].append({"file": fname, "match": m})
                         for u in URL_RE.findall(txt): results["urls"].append({"file": fname, "url": u})
-                        for m in BASE64_RE.finditer(txt):
-                            decoded = try_decode_base64(m.group(1))
-                            if decoded: results["decoded_strings"].append({"file": fname, "encoded": m.group(1), "decoded": decoded.strip()})
-                        for hint in CRYPTO_HINTS_RE.findall(txt):
-                            if hint.upper() not in results["crypto_hints"]: results["crypto_hints"].append(hint.upper())
-                except Exception as e:
-                    logger.debug(f"Error reading {file_path}: {e}")
-    manifest_path = os.path.join(decompiled_path, "AndroidManifest.xml")
-    if os.path.exists(manifest_path):
-        try:
-            with open(manifest_path, "r", errors="ignore") as fh:
-                mtxt = fh.read()
-                for perm in DANGEROUS_PERMS:
-                    if perm in mtxt and perm not in results["permissions"]: results["permissions"].append(perm)
-        except Exception as e:
-            logger.debug(f"Error reading manifest: {e}")
+                except Exception:
+                    pass
+            
     return results

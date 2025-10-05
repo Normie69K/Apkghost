@@ -26,3 +26,64 @@ Traceback (most recent call last):
     from .utils.file_inspector import inspect_file
 ImportError: cannot import name 'inspect_file' from 'apkghost.utils.file_inspector' (/home/karan/Documents/Apkghost/apkghost/utils/file_inspector.py)
 2025-10-06 03:36:56,148 INFO Executing command: apktool d /home/karan/Downloads/mihon-v0.19.1.apk -o /home/karan/Music -f
+2025-10-06 03:46:17,005 ERROR Failed to launch GUI: name 'ck' is not defined
+Traceback (most recent call last):
+  File "/home/karan/Documents/Apkghost/apkghost/main.py", line 27, in main
+    launch()
+    ~~~~~~^^
+  File "/home/karan/Documents/Apkghost/apkghost/gui.py", line 15, in launch
+    app = App()
+  File "/home/karan/Documents/Apkghost/apkghost/gui.py", line 12, in __init__
+    self.controller = Controller(self)
+                      ~~~~~~~~~~^^^^^^
+  File "/home/karan/Documents/Apkghost/apkghost/controller.py", line 18, in __init__
+    self._build_responsive_ui()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/karan/Documents/Apkghost/apkghost/controller.py", line 25, in _build_responsive_ui
+    self._build_file_inspector_tab(self.tab_view.tab("File Inspector"))
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/karan/Documents/Apkghost/apkghost/controller.py", line 50, in _build_file_inspector_tab
+    self.search_btn = ck.CTkButton(controls, text="Search", width=100, command=self.on_hex_search, state="disabled"); self.search_btn.grid(row=0, column=2)
+                      ^^
+NameError: name 'ck' is not defined. Did you mean: 'ctk'?
+2025-10-06 03:46:19,495 ERROR Failed to launch GUI: name 'ck' is not defined
+Traceback (most recent call last):
+  File "/home/karan/Documents/Apkghost/apkghost/main.py", line 27, in main
+    launch()
+    ~~~~~~^^
+  File "/home/karan/Documents/Apkghost/apkghost/gui.py", line 15, in launch
+    app = App()
+  File "/home/karan/Documents/Apkghost/apkghost/gui.py", line 12, in __init__
+    self.controller = Controller(self)
+                      ~~~~~~~~~~^^^^^^
+  File "/home/karan/Documents/Apkghost/apkghost/controller.py", line 18, in __init__
+    self._build_responsive_ui()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/karan/Documents/Apkghost/apkghost/controller.py", line 25, in _build_responsive_ui
+    self._build_file_inspector_tab(self.tab_view.tab("File Inspector"))
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/karan/Documents/Apkghost/apkghost/controller.py", line 50, in _build_file_inspector_tab
+    self.search_btn = ck.CTkButton(controls, text="Search", width=100, command=self.on_hex_search, state="disabled"); self.search_btn.grid(row=0, column=2)
+                      ^^
+NameError: name 'ck' is not defined. Did you mean: 'ctk'?
+2025-10-06 03:46:39,696 ERROR Failed to launch GUI: name 'ck' is not defined
+Traceback (most recent call last):
+  File "/home/karan/Documents/Apkghost/apkghost/main.py", line 27, in main
+    launch()
+    ~~~~~~^^
+  File "/home/karan/Documents/Apkghost/apkghost/gui.py", line 15, in launch
+    app = App()
+  File "/home/karan/Documents/Apkghost/apkghost/gui.py", line 12, in __init__
+    self.controller = Controller(self)
+                      ~~~~~~~~~~^^^^^^
+  File "/home/karan/Documents/Apkghost/apkghost/controller.py", line 18, in __init__
+    self._build_responsive_ui()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/karan/Documents/Apkghost/apkghost/controller.py", line 25, in _build_responsive_ui
+    self._build_file_inspector_tab(self.tab_view.tab("File Inspector"))
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/karan/Documents/Apkghost/apkghost/controller.py", line 50, in _build_file_inspector_tab
+    self.search_btn = ck.CTkButton(controls, text="Search", width=100, command=self.on_hex_search, state="disabled"); self.search_btn.grid(row=0, column=2)
+                      ^^
+NameError: name 'ck' is not defined. Did you mean: 'ctk'?
+2025-10-06 03:47:43,641 INFO Executing command: apktool d /home/karan/Downloads/mihon-v0.19.1.apk -o /home/karan/Music -f

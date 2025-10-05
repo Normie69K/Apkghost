@@ -132,17 +132,45 @@ class Controller:
 
     def format_report(self, results):
         report = [f"Scanned Files: {results.get('scanned_files', 0)}\n"]
-        report.append("---[ Cryptography Hints ]---")
-        hints = results.get('crypto_hints', []); report.append("\n".join(f"  [!] Found: {h}" for h in hints) or "  No strong crypto hints found.\n")
-        report.append("\n---[ Decoded Strings ]---")
-        decoded = results.get('decoded_strings', [])
-        if decoded: [report.extend([f"  [+] Decoded: {i['decoded']}", f"      In File: {i['file']}\n"]) for i in decoded]
-        else: report.append("  No weakly encoded strings found.\n")
-        report.append("\n---[ Hardcoded API Keys ]---")
+        report.append("---[ API Keys ]---")
         keys = results.get('api_keys', [])
-        if keys: [report.extend([f"  [+] Key: {i['match']}", f"      File: {i['file']}\n"]) for i in keys]
-        else: report.append("  No hardcoded secrets found.\an")
+        if keys:
+            for i in keys:
+                report.extend([f"  [+] Key: {i['match']}", f"      File: {i['file']}\n"])
+        else:
+            report.append("  No hardcoded secrets found.\n")
+
+        report.append("\n---[ URLs ]---")
+        urls = results.get('urls', [])
+        if urls:
+            for i in urls:
+                report.extend([f"  [+] URL: {i['url']}", f"      File: {i['file']}\n"])
+        else:
+            report.append("  No URLs found.\n")
+
+        report.append("\n---[ Permissions ]---")
+        permissions = results.get('permissions', [])
+        if permissions:
+            report.append("\n".join(f"  - {p}" for p in permissions))
+        else:
+            report.append("  No permissions found.\n")
+
+        report.append("\n---[ Exported Activities ]---")
+        exported_activities = results.get('exported_activities', [])
+        if exported_activities:
+            report.append("\n".join(f"  - {a}" for a in exported_activities))
+        else:
+            report.append("  No exported activities found.\n")
+
+        report.append("\n---[ Deep Links ]---")
+        deep_links = results.get('deep_links', [])
+        if deep_links:
+            report.append("\n".join(f"  - {dl}" for dl in deep_links))
+        else:
+            report.append("  No deep links found.\n")
+
         return "\n".join(report)
+
 
     def populate_tree(self, tree, path):
         for i in tree.get_children(): tree.delete(i)

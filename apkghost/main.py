@@ -1,6 +1,6 @@
 import argparse
 import os
-from .tools_integration import run_apktool_decompile
+from .tools_integration import decompile_with_apktool
 from .analyzer.static_analyzer import scan_project
 from .report.generator import save_json_report, save_html_report
 from .logger import logger
@@ -15,8 +15,8 @@ def main():
     if args.decompile:
         apk = args.decompile
         out = os.path.join(os.getcwd(), "decompiled_" + os.path.splitext(os.path.basename(apk))[0])
-        code, text = run_apktool_decompile(apk, out)
-        print(text)
+        result = decompile_with_apktool(apk, out)
+        print(result["output"])
     elif args.analyze:
         proj = args.analyze
         res = scan_project(proj)

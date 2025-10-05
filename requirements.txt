@@ -5,3 +5,5 @@ reportlab
 pyyaml
 Pillow
 pefile
+frida-tools
+yara-python
